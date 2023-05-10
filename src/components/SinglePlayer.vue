@@ -2,7 +2,7 @@
 
 <h1>Player {{id}}</h1>
 
-<!-- Five dices displayed with a vfor loop -->
+<!-- Dices displayed with a vfor loop -->
 <div class="dices">
     <SingleDice v-for="dice in dices" :key="dice.id" :dice="dice" />
 </div>
