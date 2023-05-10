@@ -4,7 +4,7 @@
 
 <!-- Five dices displayed with a vfor loop -->
 <div class="dices">
-    <SingleDice v-for="dice in 5" :key="dice.id" :dice="dice" />
+    <SingleDice v-for="dice in dices" :key="dice.id" :dice="dice" />
 </div>
 
     
@@ -20,6 +20,11 @@ export default {
     },
     props: {
         id: Number
+    },
+    data() {
+        return {
+            dices: 5
+        }
     },
 }
 </script>

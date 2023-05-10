@@ -1,7 +1,6 @@
 <template>
   <LaunchMenu v-if="!gameLaunched" v-model:launch="launch"/>
 
-
   <!-- vfor of players -->
   <div v-if="gameLaunched" >
     <SinglePlayer v-for="player in nbOfPlayers" :key="player.id" :id="player" />
