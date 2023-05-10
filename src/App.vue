@@ -1,15 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <LaunchMenu v-if="!gameLaunched" v-model:launch="launch"/>
+
+  <!-- vfor of players -->
+  <div v-if="gameLaunched" >
+    <SinglePlayer v-for="player in nbOfPlayers" :key="player.id" :id="player" />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SinglePlayer from './components/SinglePlayer.vue'
+import LaunchMenu from './components/LaunchMenu.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    SinglePlayer,
+    LaunchMenu  
+  },
+  data() {
+    return {
+      nbOfPlayers: 0,
+      gameLaunched: false
+    }
+  },
+  // when launch button is clicked, gameLaunched is set to true with computed
+  computed: {
+    launch: {
+      get() {
+        return this.gameLaunched
+      },
+      set(value) {
+        this.gameLaunched = value.gameLaunched
+        this.nbOfPlayers = parseInt(value.nbOfPlayers)
+      }
+    }
   }
 }
 </script>
