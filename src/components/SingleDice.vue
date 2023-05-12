@@ -5,13 +5,10 @@
 </template>
 
 <script>
-import { getRandomDiceNumber } from "@/services/randomNumber.js"
 export default {
     name: 'SingleDice',
-    data() {
-        return {
-            dice: getRandomDiceNumber()
-        }
+    props: {
+        dice: Number
     },
 }
 </script>

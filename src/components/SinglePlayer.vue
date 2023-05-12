@@ -1,17 +1,20 @@
 <template>
 
-<h1>Player {{id}}</h1>
+<h1>Your dices !</h1>
 
 <!-- Dices displayed with a vfor loop -->
 <div class="dices">
-    <SingleDice v-for="dice in dices" :key="dice.id" :dice="dice" />
+    <!-- <SingleDice :dice="5" /> -->
+    <SingleDice v-for="dice in store.players[0].dices" :key="dice.id" :dice="dice" />
 </div>
 
-    
+<i-button v-on:click="rollDices()" color="primary">Roll dices</i-button>
 </template>
 
 <script>
 import SingleDice from './SingleDice.vue'
+import { getRandomDiceNumber } from '@/services/randomNumber.js'
+import { store } from '../store.js'
 
 export default {
     name: 'SinglePlayer',
@@ -19,13 +22,20 @@ export default {
         SingleDice
     },
     props: {
-        id: Number
     },
     data() {
         return {
-            dices: 5
+            store,
         }
     },
+    methods: {
+        rollDices() {
+            // generate random dices for each player
+            for (let i = 0; i < store.globalNbOfDices; i++) {
+                store.players[0].dices[i] = getRandomDiceNumber()
+            }
+        }
+    }
 }
 </script>
 
