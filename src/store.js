@@ -5,4 +5,5 @@ export const store = reactive({
   nbOfPlayers: 0,
   players : [],
   globalNbOfDices: 5,
+  currentPlayer: 0
 })
