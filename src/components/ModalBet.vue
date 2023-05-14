@@ -7,7 +7,7 @@
         </template>
 
         <template #default>
-            <i-number-input v-model="store.players[0].enchere.nb" :min="1" placeholder="Number of dices.." />
+            <i-number-input v-model="store.players[0].enchere.nb" :min="1" :max="store.globalNbOfDices * store.players.length" placeholder="Number of dices.." />
 
             <div class="dicesBet">
                 <SingleDice v-on:click="clickDice(dice)" v-for="dice in 6" :key="dice.id" :dice="dice" />
@@ -46,6 +46,21 @@ export default {
           //do something when the data changes.
           if (!val && !this.betConfirmed) {
               this.cancelBet();
+          }
+
+          if (val && this.betAvailable){
+                // remove background color from dices
+                for (let i = 0; i < 6; i++) {
+                    document.getElementsByClassName("dicesBet")[0].children[i].style.backgroundColor = "red";
+                }
+
+                store.players[0].enchere.dice = store.players[store.players.length-1].enchere.dice
+                store.players[0].enchere.nb = store.players[store.players.length-1].enchere.nb
+
+                if (store.players[0].enchere.dice != null) {
+                    // set dice background color to blue to show it's selected
+                    document.getElementsByClassName("dicesBet")[0].children[store.players[0].enchere.dice-1].style.backgroundColor = "blue";
+                }
           }
         },
         "store.currentPlayer": function(val) {

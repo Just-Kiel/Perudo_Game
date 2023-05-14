@@ -34,7 +34,7 @@ export default {
     watch: {
         'store.currentPlayer': function(val) {
             //do something when the data changes.
-            if (val == this.player.id) {
+            if (val == this.player.id && val != 0) {
                 // make a random valid bet
                 let dice = getRandomDiceNumber()
                 while (dice < store.players[store.currentPlayer-1].enchere.dice) {
@@ -45,18 +45,19 @@ export default {
 
                 // if dice is equal to previous bet, make a random bet number higher than previous one
                 if (dice == store.players[store.currentPlayer-1].enchere.dice) {
-                    store.players[store.currentPlayer].enchere.nb = store.players[store.currentPlayer-1].enchere.nb + Math.floor(Math.random() * 5)
+                    // TODO to modify to make it more random
+                    store.players[store.currentPlayer].enchere.nb = Math.floor(Math.random() * ((store.globalNbOfDices*store.players.length) - store.players[store.currentPlayer-1].enchere.nb + 1) + store.players[store.currentPlayer-1].enchere.nb)
                 } else {
                     store.players[store.currentPlayer].enchere.nb = store.players[store.currentPlayer-1].enchere.nb
                 }
-            }
 
-            // if last player, reset current player to 1
-            if (val == store.players.length) {
-                store.currentPlayer = 0
-            } else {
-                store.currentPlayer += 1
-            }
+                // if last player, reset current player to 1
+                if (val == store.players.length-1) {
+                    store.currentPlayer = 0
+                } else {
+                    store.currentPlayer += 1
+                }
+            } 
         }
     }
 }
