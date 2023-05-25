@@ -9,6 +9,30 @@ function rollAllDices(store) {
         }
     }
 
+    // dudo and calza
+    if (store.dudoBet !== null) {
+        if (store.dudoBet) {
+            store.players[store.currentPlayer].dices.pop()
+        } else if (!store.dudoBet) {
+            if (store.currentPlayer === 0) {
+                store.players[store.players.length - 1].dices.pop()
+            } else {
+                store.players[store.currentPlayer-1].dices.pop()
+            }
+        }
+    }
+
+    if (store.calzaBet !== null) {
+        if (!store.calzaBet) {
+            store.players[store.currentPlayer].dices.pop()
+        } else if (store.calzaBet) {
+            // if current player has under 5 dices, add one
+            if (store.players[store.currentPlayer].dices.length < 5) {
+                store.players[store.currentPlayer].dices.push(getRandomDiceNumber())
+            }
+        }
+    }
+
     store.dudoBet = null
     store.calzaBet = null
 

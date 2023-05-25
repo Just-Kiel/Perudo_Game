@@ -47,12 +47,6 @@ export default {
 
                     store.calzaBet = calza(store)
 
-                    if (!store.calzaBet) {
-                        store.players[store.currentPlayer].dices.pop()
-                    } else {
-                        store.players[store.currentPlayer-1].dices.pop()
-                    }
-
                     console.log(store.players[store.currentPlayer].dices)
                 } else {
                     console.log("bet")

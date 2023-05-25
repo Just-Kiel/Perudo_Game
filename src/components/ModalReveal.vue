@@ -16,10 +16,18 @@
 
         <!-- Result of bet -->
         <div v-if="store.dudoBet">
-            <p>Player {{store.currentPlayer-1}} was right !</p>
+            <p>Player {{store.currentPlayer}} was right !</p>
         </div>
         <div v-else-if="store.dudoBet == false">
-            <p>Player {{store.currentPlayer-1}} was wrong !</p>
+            <p>Player {{store.currentPlayer}} was wrong !</p>
+        </div>
+
+        <!-- Result of calza -->
+        <div v-if="store.calzaBet">
+            <p>Player {{store.currentPlayer}} was exact !</p>
+        </div>
+        <div v-else-if="store.calzaBet == false">
+            <p>Player {{store.currentPlayer}} was wrong !</p>
         </div>
         
         <template #footer>
@@ -51,16 +59,14 @@ export default {
     },
     watch: {
         "store.dudoBet": function(val) {
-            if (val) {
-                this.visible = true
-                console.log("dudo reveal")
-            }
+            if (val === null) return
+            this.visible = true
+            console.log("dudo reveal")
         },
         "store.calzaBet": function(val) {
-            if (val) {
-                this.visible = true
-                console.log("calza reveal")
-            }
+            if (val === null) return
+            this.visible = true
+            console.log("calza reveal")
         },
     }
 }

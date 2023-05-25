@@ -7,6 +7,9 @@
       <div id="mainPlayer">
         <SinglePlayer />
       </div>
+
+      <!-- TODO to remove -->
+      {{store}}
       
       <SideBar />
     </i-layout>
@@ -16,7 +19,6 @@
 </template>
 
 <script>
-// TODO display all the dices when dudo or calza is made
 import SinglePlayer from './components/SinglePlayer.vue'
 import LaunchMenu from './components/LaunchMenu.vue'
 import SideBar from './components/SideBar.vue'
@@ -62,30 +64,15 @@ export default {
             }
           }
 
-          // TODO generate random dices for each player
+          // Generate random dices for each player
           for (let j = 0; j < store.globalNbOfDices; j++) {
+            console.log("Generate dices")
             store.players[i].dices.push(0)
             rollAllDices(store)
           }
         }
       }
     }
-  },
-  watch: {
-    "store.dudoBet": function(val) {
-      if (val != null) {
-        // TODO display all the dices
-        console.log("Dudo bet made")
-        console.log(store.dudoBet)
-      }
-    },
-    "store.calzaBet": function(val) {
-      if (val != null) {
-        // TODO display all the dices
-        console.log("Calza bet made")
-        console.log(store.calzaBet)
-      }
-    },
   }
 }
 </script>
@@ -96,7 +83,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
 }
 #mainPlayer{
   width: 100vw;
