@@ -10,9 +10,6 @@
         <!-- button to stop the game -->
         <i-button v-on:click="stopGame()" color="primary">Stop the game</i-button>
       </div>
-
-      <!-- TODO to remove -->
-      {{store}}
       
       <SideBar />
     </i-layout>
