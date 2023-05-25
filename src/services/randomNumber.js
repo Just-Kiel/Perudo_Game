@@ -5,7 +5,9 @@ function getRandomDiceNumber() {
 function rollAllDices(store) {
     for (let i = 0; i < store.players.length; i++) {
         for (let j = 0; j < store.players[i].dices.length; j++) {
-            store.players[i].dices[j] = getRandomDiceNumber();
+            let dice = getRandomDiceNumber();
+            store.players[i].dices[j] = dice;
+            store.diceCount[dice-1].nb += 1;
         }
     }
 
@@ -40,6 +42,13 @@ function rollAllDices(store) {
     for (let i = 0; i < store.players.length; i++) {
         store.players[i].enchere.dice = null
         store.players[i].enchere.nb = null
+    }
+
+    // check if one player has no more dices
+    for (let i = 0; i < store.players.length; i++) {
+        if (store.players[i].dices.length === 0) {
+            store.players.splice(i, 1)
+        }
     }
 
     store.currentPlayer = 0

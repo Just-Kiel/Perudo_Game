@@ -1,11 +1,14 @@
 <template>
-  <LaunchMenu v-if="!gameLaunched" v-model:launch="launch"/>
+  <LaunchMenu v-if="!gameLaunched && !endOfGame" v-model:launch="launch"/>
 
   <!-- vfor of players -->
   <div v-if="gameLaunched" >
     <i-layout vertical>
       <div id="mainPlayer">
         <SinglePlayer />
+
+        <!-- button to stop the game -->
+        <i-button v-on:click="stopGame()" color="primary">Stop the game</i-button>
       </div>
 
       <!-- TODO to remove -->
@@ -16,6 +19,8 @@
   </div>
 
   <ModalReveal/>
+
+  <StatisticsInfos v-if="endOfGame"/>
 </template>
 
 <script>
@@ -25,6 +30,7 @@ import SideBar from './components/SideBar.vue'
 import { store } from './store.js'
 import { rollAllDices } from '@/services/randomNumber.js'
 import ModalReveal from './components/ModalReveal.vue'
+import StatisticsInfos from './components/Statistics.vue'
 
 export default {
   name: 'App',
@@ -32,13 +38,15 @@ export default {
     SinglePlayer,
     LaunchMenu,
     SideBar,
-    ModalReveal
+    ModalReveal,
+    StatisticsInfos
   },
   data() {
     return {
       store,
       gameLaunched: false,
       currentPlayer: 1,
+      endOfGame: false,
     }
   },
   // when launch button is clicked, gameLaunched is set to true with computed
@@ -64,14 +72,28 @@ export default {
             }
           }
 
+          console.log("Generate dices")
           // Generate random dices for each player
           for (let j = 0; j < store.globalNbOfDices; j++) {
-            console.log("Generate dices")
             store.players[i].dices.push(0)
-            rollAllDices(store)
           }
         }
+        rollAllDices(store)
       }
+    }
+  },
+  // watch if store.players.length has changed
+  watch: {
+    "store.players.length": function(val) {
+      if (val === 1) {
+        this.stopGame()
+      }
+    }
+  },
+  methods: {
+    stopGame() {
+      this.gameLaunched = false
+      this.endOfGame = true
     }
   }
 }

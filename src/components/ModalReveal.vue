@@ -16,10 +16,10 @@
 
         <!-- Result of bet -->
         <div v-if="store.dudoBet">
-            <p>Player {{store.currentPlayer}} was right !</p>
+            <p>Player {{previousPlayer}} was right !</p>
         </div>
         <div v-else-if="store.dudoBet == false">
-            <p>Player {{store.currentPlayer}} was wrong !</p>
+            <p>Player {{previousPlayer}} was wrong !</p>
         </div>
 
         <!-- Result of calza -->
@@ -27,7 +27,7 @@
             <p>Player {{store.currentPlayer}} was exact !</p>
         </div>
         <div v-else-if="store.calzaBet == false">
-            <p>Player {{store.currentPlayer}} was wrong !</p>
+            <p>Player {{store.currentPlayer}} was not exact !</p>
         </div>
         
         <template #footer>
@@ -49,6 +49,12 @@ export default {
         return {
             store,
             visible: false
+        }
+    },
+    // computed previous player waiting if store.dudoBet is false
+    computed: {
+        previousPlayer() {
+            return store.currentPlayer == 0 ? store.players.length -1 : store.currentPlayer - 1
         }
     },
     methods: {

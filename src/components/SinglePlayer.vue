@@ -18,20 +18,6 @@
 <!-- v else -->
 <i-button v-else v-on:click="calza()" color="primary">Calza</i-button>
 
-<!-- display if dudo was true or false -->
-<div v-if="store.dudoBet">
-    <p>Player {{store.currentPlayer-1}} was right !</p>
-
-    <!-- button to roll new dices -->
-    <i-button v-on:click="rollAllDices()" color="primary">Roll new dices</i-button>
-</div>
-<div v-else-if="store.dudoBet == false">
-    <p>Player {{store.currentPlayer-1}} was wrong !</p>
-
-    <i-button v-on:click="rollAllDices()" color="primary">Roll new dices</i-button>
-</div>
-
-
 <!-- if the player has made a bet show it here -->
 <div v-if="store.players[0].enchere.dice != null">
     <p>Your bet : {{ store.players[0].enchere.nb }} <SingleDice :dice="store.players[0].enchere.dice" /></p>
