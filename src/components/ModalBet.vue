@@ -10,6 +10,7 @@
             <i-number-input v-model="store.players[0].enchere.nb" :min="1" :max="store.globalNbOfDices * store.players.length" placeholder="Number of dices.." />
 
             <div class="dicesBet">
+                <!-- TODO paco is higher than 6 so delete one and display 6 after -->
                 <SingleDice v-on:click="clickDice(dice)" v-for="dice in 6" :key="dice.id" :dice="dice" />
             </div>
         </template>
@@ -75,6 +76,8 @@ export default {
                 alert("You must select a dice and a number of dices !")
                 return
             }
+
+            // TODO if dice is higher, nb can be /2 +1 (if odd) or /2 (if even)
 
             // if nb faces is lower than previous bet
             if (store.players[0].enchere.nb < store.players[store.players.length-1].enchere.nb) {

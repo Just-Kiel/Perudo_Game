@@ -7,25 +7,30 @@
       <div id="mainPlayer">
         <SinglePlayer />
       </div>
-    <!-- <SinglePlayer v-for="player in nbOfPlayers" :key="player.id" :id="player" /> -->
+      
       <SideBar />
     </i-layout>
   </div>
+
+  <ModalReveal/>
 </template>
 
 <script>
+// TODO display all the dices when dudo or calza is made
 import SinglePlayer from './components/SinglePlayer.vue'
 import LaunchMenu from './components/LaunchMenu.vue'
 import SideBar from './components/SideBar.vue'
 import { store } from './store.js'
-import { getRandomDiceNumber } from '@/services/randomNumber.js'
+import { rollAllDices } from '@/services/randomNumber.js'
+import ModalReveal from './components/ModalReveal.vue'
 
 export default {
   name: 'App',
   components: {
     SinglePlayer,
     LaunchMenu,
-    SideBar
+    SideBar,
+    ModalReveal
   },
   data() {
     return {
@@ -57,13 +62,30 @@ export default {
             }
           }
 
-          // generate random dices for each player
+          // TODO generate random dices for each player
           for (let j = 0; j < store.globalNbOfDices; j++) {
-            store.players[i].dices.push(getRandomDiceNumber())
+            store.players[i].dices.push(0)
+            rollAllDices(store)
           }
         }
       }
     }
+  },
+  watch: {
+    "store.dudoBet": function(val) {
+      if (val != null) {
+        // TODO display all the dices
+        console.log("Dudo bet made")
+        console.log(store.dudoBet)
+      }
+    },
+    "store.calzaBet": function(val) {
+      if (val != null) {
+        // TODO display all the dices
+        console.log("Calza bet made")
+        console.log(store.calzaBet)
+      }
+    },
   }
 }
 </script>

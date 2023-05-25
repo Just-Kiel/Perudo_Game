@@ -5,7 +5,7 @@
         <i-number-input v-model="store.nbOfPlayers" :min="2" :max="6" placeholder="Number of players.." />
 
         <!-- Make a button to launch the game -->
-        <i-button v-on:click="$emit('update:launch', {gameLaunched: true})" color="primary">Launch Game</i-button>
+        <i-button v-if="store.nbOfPlayers != 0" v-on:click="$emit('update:launch', {gameLaunched: true})" color="primary">Launch Game</i-button>
     </i-header>
 </template>
 
