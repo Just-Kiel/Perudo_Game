@@ -60,7 +60,7 @@ export default {
 
                         // if dice is equal to previous bet, make a random bet number higher than previous one
                         if (dice == store.players[store.currentPlayer-1].enchere.dice) {
-                            store.players[store.currentPlayer].enchere.nb = 1 + Math.trunc(loiExponentielle(1)) + store.players[store.currentPlayer-1].enchere.nb
+                            store.players[store.currentPlayer].enchere.nb = 1 + Math.trunc(loiExponentielle(1)) + parseInt(store.players[store.currentPlayer-1].enchere.nb)
                         } else {
                             store.players[store.currentPlayer].enchere.nb = store.players[store.currentPlayer-1].enchere.nb
                         }
