@@ -7,6 +7,12 @@
         <!-- Make a button to launch the game -->
         <i-button v-if="store.nbOfPlayers != 0" v-on:click="$emit('update:launch', {gameLaunched: true})" color="primary">Launch Game</i-button>
     </i-header>
+
+    <!-- TODO add parameters to tweak the maths -->
+    <h2>Parameters</h2>
+
+    <h3>Probability of a dice respecting the binomial law</h3>
+    <i-number-input v-model="store.probabilities[0].nb" :min="0" :max="1" placeholder="Enter a number.." :step="0.1" :precision="2" />
 </template>
 
 <script>

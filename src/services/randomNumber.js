@@ -1,5 +1,9 @@
+import { loiBinomiale } from "./maths";
+import { store } from "../store";
+
 function getRandomDiceNumber() {
-    return Math.floor(Math.random() * 6) + 1;
+    const diceProbabilities = store.probabilities.map((p) => p.nb);
+    return loiBinomiale(6, diceProbabilities);
 }
 
 function rollAllDices(store) {

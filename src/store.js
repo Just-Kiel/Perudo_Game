@@ -16,4 +16,7 @@ export const store = reactive({
     {value: 5, nb: 0},
     {value: 6, nb: 0},
   ],
+  probabilities: [
+    {value: "diceBinomial", nb: 0.5},
+  ],
 })
