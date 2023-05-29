@@ -66,7 +66,8 @@ export default {
             enchere: {
               nb: null,
               dice: null
-            }
+            },
+            state: "calza"
           }
 
           console.log("Generate dices")

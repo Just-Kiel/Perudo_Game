@@ -2,7 +2,8 @@ import { loiBinomiale } from "./maths";
 import { store } from "../store";
 
 function getRandomDiceNumber() {
-    const diceProbabilities = store.probabilities.map((p) => p.nb);
+    const diceProbabilities = store.probabilities[0].nb;
+    console.log(diceProbabilities)
     return loiBinomiale(6, diceProbabilities);
 }
 

@@ -25,6 +25,13 @@ function loiUniformeIntervalle(a, b) {
     return Math.random() * (b - a) + a;
 }
 
+function densiteDeProbabiliteUniforme(x, a, b) {
+    if (x >= a && x <= b) {
+        return 1 / (b - a);
+    } else {
+        return 0;
+    }
+}
 
 // Lois normales utilisant la méthode de Box-Muller
 function loiNormaleCentreeReduite() {
@@ -38,6 +45,12 @@ function loiNormaleCentreeReduite() {
 function loiNormale(moyenne, ecartType) {
     const randomNormal = loiNormaleCentreeReduite();
     return randomNormal * ecartType + moyenne;
+}
+
+function densiteDeProbabiliteNormale(x, moyenne, ecartType) {
+    const num = Math.exp(-Math.pow(x - moyenne, 2) / (2 * Math.pow(ecartType, 2)));
+    const den = ecartType * Math.sqrt(2 * Math.PI);
+    return num / den;
 }
 
 // Loi discrète
@@ -64,8 +77,13 @@ function loiDiscrète(proba, etats) {
 // Loi exponentielle
 function loiExponentielle(lambda) {
     const u = Math.random();
-    const randomNumber = -Math.log(1 - u) / lambda;
+    const randomNumber = -Math.log(u) / lambda;
     return randomNumber;
+}
+
+function densiteDeProbabiliteExponentielle(x, lambda) {
+    const num = lambda * Math.exp(-lambda * x);
+    return num;
 }
 
 // Loi binomiale
@@ -101,4 +119,4 @@ function loiBernoulli(successProbability) {
 }
 
 // export des fonctions
-export {chaineDeMarkov, loiUniforme, loiUniformeIntervalle, loiNormaleCentreeReduite, loiNormale, loiDiscrète, loiExponentielle, loiBinomiale, loiPoisson, loiBernoulli};
+export {chaineDeMarkov, loiUniforme, loiUniformeIntervalle, densiteDeProbabiliteUniforme, loiNormaleCentreeReduite, loiNormale, densiteDeProbabiliteNormale, loiDiscrète, loiExponentielle, densiteDeProbabiliteExponentielle, loiBinomiale, loiPoisson, loiBernoulli};

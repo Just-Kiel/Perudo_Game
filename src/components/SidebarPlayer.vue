@@ -15,9 +15,9 @@
 
 <script>
 import { store } from '../store.js'
-import { getRandomDiceNumber } from '@/services/randomNumber.js'
 import SingleDice from './SingleDice.vue'
 import { calza, dudo } from '@/services/dudo.js'
+import { loiNormale, loiExponentielle, loiUniformeIntervalle, chaineDeMarkov } from '@/services/maths.js'
 
 export default {
     name: 'SidebarPlayer',
@@ -36,44 +36,43 @@ export default {
         'store.currentPlayer': function(val) {
             //do something when the data changes.
             if (val == this.player.id && val != 0) {
-                let proba = Math.random()
+                setTimeout(() => {
+                    store.players[store.currentPlayer].state = chaineDeMarkov(store.players[store.currentPlayer].state)
 
-                if (proba < 0.3) {
-                    console.log("dudo")
+                    if (store.players[store.currentPlayer].state == "dudo") {
+                        console.log("dudo")
 
-                    store.dudoBet = dudo(store)
-                } else if (proba < 0.6) {
-                    console.log("calza")
+                        store.dudoBet = dudo(store)
+                    } else if (store.players[store.currentPlayer].state == "calza") {
+                        console.log("calza")
 
-                    store.calzaBet = calza(store)
-
-                    console.log(store.players[store.currentPlayer].dices)
-                } else {
-                    console.log("bet")
-
-                    // make a random valid bet
-                    let dice = getRandomDiceNumber()
-                    while (dice < store.players[store.currentPlayer-1].enchere.dice) {
-                        dice = getRandomDiceNumber()
-                    }
-
-                    store.players[store.currentPlayer].enchere.dice = dice
-
-                    // if dice is equal to previous bet, make a random bet number higher than previous one
-                    if (dice == store.players[store.currentPlayer-1].enchere.dice) {
-                        // TODO to modify to make it more random
-                        store.players[store.currentPlayer].enchere.nb = Math.floor(Math.random() * ((store.globalNbOfDices*store.players.length) - store.players[store.currentPlayer-1].enchere.nb + 1) + store.players[store.currentPlayer-1].enchere.nb)
+                        store.calzaBet = calza(store)
                     } else {
-                        store.players[store.currentPlayer].enchere.nb = store.players[store.currentPlayer-1].enchere.nb
-                    }
+                        console.log("bet")
 
-                    // if last player, reset current player to 1
-                    if (val == store.players.length-1) {
-                        store.currentPlayer = 0
-                    } else {
-                        store.currentPlayer += 1
+                        // make a random valid bet
+                        let dice = Math.trunc(loiUniformeIntervalle(0, 6))
+                        while (dice < store.players[store.currentPlayer-1].enchere.dice) {
+                            dice = Math.trunc(loiUniformeIntervalle(0, 6))
+                        }
+
+                        store.players[store.currentPlayer].enchere.dice = dice
+
+                        // if dice is equal to previous bet, make a random bet number higher than previous one
+                        if (dice == store.players[store.currentPlayer-1].enchere.dice) {
+                            store.players[store.currentPlayer].enchere.nb = 1 + Math.trunc(loiExponentielle(1)) + store.players[store.currentPlayer-1].enchere.nb
+                        } else {
+                            store.players[store.currentPlayer].enchere.nb = store.players[store.currentPlayer-1].enchere.nb
+                        }
+
+                        // if last player, reset current player to 1
+                        if (val == store.players.length-1) {
+                            store.currentPlayer = 0
+                        } else {
+                            store.currentPlayer += 1
+                        }
                     }
-                }
+                }, loiNormale(5, 1) * 1000)
             } 
         }
     }
