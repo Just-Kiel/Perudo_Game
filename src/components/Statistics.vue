@@ -62,8 +62,12 @@ import { Bar } from 'vue-chartjs'
 //   LineElement,
 // } from 'chart.js'
 // import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
-import { Chart, registerables } from 'chart.js';
-Chart.register(...registerables);
+// import { Chart, registerables } from 'chart.js';
+// Chart.register(...registerables);
+
+// eslint-disable-next-line no-unused-vars
+import Chart from 'chart.js/auto'
+
 import { loiBinomiale, loiNormale, densiteDeProbabiliteNormale, loiExponentielle, densiteDeProbabiliteExponentielle, loiUniformeIntervalle, densiteDeProbabiliteUniforme } from "../services/maths";
 
 // ChartJS.register(CategoryScale, LinearScale,PointElement, LineElement, BarElement, Title, Tooltip, Legend)
