@@ -57,14 +57,16 @@
 import { store } from '../store.js'
 import { Bar } from 'vue-chartjs'
 // import { Line } from 'vue-chartjs'
-import {
-  PointElement,
-  LineElement,
-} from 'chart.js'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+// import {
+//   PointElement,
+//   LineElement,
+// } from 'chart.js'
+// import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Chart, registerables } from 'chart.js';
+Chart.register(...registerables);
 import { loiBinomiale, loiNormale, densiteDeProbabiliteNormale, loiExponentielle, densiteDeProbabiliteExponentielle, loiUniformeIntervalle, densiteDeProbabiliteUniforme } from "../services/maths";
 
-ChartJS.register(CategoryScale, LinearScale,PointElement, LineElement, BarElement, Title, Tooltip, Legend)
+// ChartJS.register(CategoryScale, LinearScale,PointElement, LineElement, BarElement, Title, Tooltip, Legend)
 
 export default {
   name: 'BarChart',
